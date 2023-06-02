@@ -20,16 +20,24 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
+    private String password;
+
     @Column(name = "email")
     private String email;
 
     public User() {
     }
 
-    public User(String name, String surname, Integer age, String email) {
+    public User(String name, String surname, Integer age, String username, String password, String email) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+        this.username = username;
+        this.password = password;
         this.email = email;
     }
 
@@ -73,12 +81,31 @@ public class User {
         this.email = email;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 ", age=" + age +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 '}';
     }
