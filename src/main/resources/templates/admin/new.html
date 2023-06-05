@@ -25,6 +25,16 @@
     <label for="email">Введите почту: </label>
     <input type="text" th:field="*{email}" id="email"/>
     <br/>
+    <p>
+        <label>Roles:
+            <input type="checkbox" name="roles"
+                   th:each="role : ${allRoles}"
+                   th:text="${role.name}"
+                   th:value="${role.id}"
+                   th:field="*{roles}"
+            />
+        </label>
+    </p>
     <input type="submit" value="Создать пользователя">
 </form>
 </body>

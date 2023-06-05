@@ -37,7 +37,6 @@ public class UserService {
         if (optionalUser.isPresent()) {
             return false;
         }
-        user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         userRepository.save(user);
         return true;
     }
