@@ -21,10 +21,10 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
-    @Column(name = "username")
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Column(name = "email")
@@ -32,19 +32,32 @@ public class User {
 
     @Column(name = "roles")
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
     public User() {
     }
 
     public User(String name, String surname, Integer age,
-                String username, String password, String email, String role) {
+                String username, String password, String email) {
         this.name = name;
         this.surname = surname;
         this.age = age;
         this.username = username;
         this.password = password;
         this.email = email;
+    }
+
+    public User(String name, String surname, Integer age, String username, String password, String email, Set<Role> roles) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
     }
 
     public Long getId() {
