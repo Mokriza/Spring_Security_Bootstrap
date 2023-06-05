@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -8,7 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -29,10 +30,15 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "roles")
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roles;
+
     public User() {
     }
 
-    public User(String name, String surname, Integer age, String username, String password, String email) {
+    public User(String name, String surname, Integer age,
+                String username, String password, String email, String role) {
         this.name = name;
         this.surname = surname;
         this.age = age;
@@ -97,6 +103,14 @@ public class User {
         this.password = password;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -107,6 +121,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
