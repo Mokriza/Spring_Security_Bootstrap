@@ -23,12 +23,12 @@ public class AdminController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("usersList", userService.findAll());
-        return "/admin/index";
+        return "admin/index";
     }
 
-    @GetMapping("admin/new")
+    @GetMapping("/new")
     public String newUser(@ModelAttribute("newUser") User user) {
-        return "/admin/new";
+        return "admin/new";
     }
 
     @PostMapping()
@@ -37,19 +37,19 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @PatchMapping("admin/{id}/edit")
+    @PatchMapping("/{id}/edit")
     public String editUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findOne(id));
-        return "/admin/edit";
+        return "admin/edit";
     }
 
-    @PatchMapping("/admin/{id}")
+    @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
         userService.update(id, user);
         return "redirect:/admin";
     }
 
-    @DeleteMapping("admin/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.delete(id);
         return "redirect:/admin";
