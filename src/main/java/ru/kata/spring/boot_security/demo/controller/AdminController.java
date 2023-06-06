@@ -4,64 +4,60 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
-
-import java.util.List;
+import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
+import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
 
-    private final RoleService roleService;
+    private final RoleServiceImpl roleServiceImpl;
 
     @Autowired
-    public AdminController(UserService userService, RoleService roleService) {
-        this.userService = userService;
-        this.roleService = roleService;
+    public AdminController(UserServiceImpl userServiceImpl, RoleServiceImpl roleServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.roleServiceImpl = roleServiceImpl;
     }
-
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("usersList", userService.findAll());
+        model.addAttribute("usersList", userServiceImpl.findAll());
         return "admin/index";
     }
 
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("newUser", new User());
-        model.addAttribute("allRoles", roleService.findAll());
+        model.addAttribute("allRoles", roleServiceImpl.findAll());
         return "admin/new";
     }
 
     @PostMapping()
     public String createUser(@ModelAttribute("newUser") User user) {
-        userService.save(user);
+        userServiceImpl.save(user);
         return "redirect:/admin";
     }
 
     @PatchMapping("/{id}/edit")
     public String editUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        model.addAttribute("allRoles",roleService.findAll());
+        model.addAttribute("user", userServiceImpl.findOne(id));
+        model.addAttribute("allRoles", roleServiceImpl.findAll());
         return "admin/edit";
     }
 
     @PatchMapping("/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        userService.update(id, user);
+        userServiceImpl.update(id, user);
         return "redirect:/admin";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
-        userService.delete(id);
+        userServiceImpl.delete(id);
         return "redirect:/admin";
     }
 

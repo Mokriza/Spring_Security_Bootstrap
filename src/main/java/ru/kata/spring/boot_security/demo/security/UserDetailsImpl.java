@@ -1,16 +1,16 @@
 package ru.kata.spring.boot_security.demo.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import java.util.Collection;
 
-public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+public class UserDetailsImpl implements UserDetails {
 
     private final User user;
 
-    public UserDetails(User user) {
+    public UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -21,12 +21,12 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     @Override
     public String getPassword() {
-        return this.user.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.user.getUsername();
+        return user.getUsername();
     }
 
     @Override
