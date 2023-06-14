@@ -30,15 +30,18 @@
         <div class="col-5 col-md-6 col-xl-1 px-sm-1 px-0 bg-white">
             <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="/admin" class="nav-link align-middle px-0">
-                            <button class="btn btn-outline-primary" type="button">Admin</button>
-                        </a>
-                    </li>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link align-middle px-0">
+                                <button class="btn btn-outline-primary" type="button">Admin</button>
+                            </a>
+                        </li>
+                    </div>
                     <li>
                         <a href="/user" class="nav-link px-0 align-middle">
                             <button class="btn btn-primary" type="button">User</button>
                         </a>
+                    </li>
                 </ul>
                 <hr>
             </div>
