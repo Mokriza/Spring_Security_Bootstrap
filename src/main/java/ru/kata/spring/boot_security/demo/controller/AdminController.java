@@ -1,10 +1,13 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImpl;
 import ru.kata.spring.boot_security.demo.service.UserServiceImpl;
 
@@ -26,27 +29,18 @@ public class AdminController {
     @GetMapping()
     public String index(Model model) {
         model.addAttribute("usersList", userServiceImpl.findAll());
-        return "admin/index";
-    }
-
-    @GetMapping("/new")
-    public String newUser(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = ((UserDetailsImpl) authentication.getPrincipal()).getUser();
+        model.addAttribute("user", user);
         model.addAttribute("newUser", new User());
         model.addAttribute("allRoles", roleServiceImpl.findAll());
-        return "admin/new";
+        return "admin/index";
     }
 
     @PostMapping()
     public String createUser(@ModelAttribute("newUser") User user) {
         userServiceImpl.save(user);
         return "redirect:/admin";
-    }
-
-    @PatchMapping("/{id}/edit")
-    public String editUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userServiceImpl.findOne(id));
-        model.addAttribute("allRoles", roleServiceImpl.findAll());
-        return "admin/edit";
     }
 
     @PatchMapping("/{id}")
