@@ -26,31 +26,30 @@
 
 <!-- Left nav bar -->
 <div class="container-fluid">
-    <div class="row flex-nowrap">
-        <div class="col-5 col-md-6 col-xl-1 px-sm-1 px-0 bg-white">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <div sec:authorize="hasRole('ADMIN')">
-                        <li class="nav-item">
-                            <a href="/admin" class="nav-link align-middle px-0">
-                                <button class="btn btn-outline-primary" type="button">Admin</button>
-                            </a>
-                        </li>
-                    </div>
-                    <li>
-                        <a href="/user" class="nav-link px-0 align-middle">
-                            <button class="btn btn-primary" type="button">User</button>
+    <div class="row flex-nowrap h-100">
+        <div class="col-2 pt-2 bg-white h-100 d-inline-block">
+            <!--            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">-->
+            <ul class="nav nav-fill flex-column align-items-left" id="menu">
+                <div sec:authorize="hasRole('ADMIN')">
+                    <li class="nav-item">
+                        <a href="/admin" class="nav-link align-middle px-0">
+                            <button class="btn w-100 text-start" type="button">Admin</button>
                         </a>
                     </li>
-                </ul>
-                <hr>
-            </div>
+                </div>
+                <li>
+                    <a href="/user" class="nav-link px-0 align-middle">
+                        <button class="btn btn-primary w-100 text-start" type="button">User</button>
+                    </a>
+                </li>
+            </ul>
+            <!--            </div>-->
         </div>
-        <div class="col py-3 bg-light">
+        <div class="col-10 py-3 bg-light h-100 d-inline-block">
             <h1> User information-page </h1>
 
             <!-- Tab panes -->
-            <div class="tab-content">
+            <div class="tab-content border">
                 <div class="tab-pane container active" id="users">
                     <div class="container">
                         <div class="row py-3">
@@ -84,7 +83,6 @@
                             </tr>
                             </tbody>
                         </table>
-
                     </div>
                 </div>
             </div>
