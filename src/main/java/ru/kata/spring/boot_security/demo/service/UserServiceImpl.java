@@ -24,17 +24,17 @@ public class UserServiceImpl implements UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public List<User> findAll() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public User findOne(Long id) {
+    public User getUserById(Long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElse(null);
     }
 
     @Transactional
-    public boolean save(User user) {
+    public boolean saveUser(User user) {
         Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
         if (optionalUser.isPresent()) {
             return false;
@@ -45,14 +45,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public void update(Long id, User updatedUser) {
+    public void updateUser(Long id, User updatedUser) {
         updatedUser.setId(id);
         updatedUser.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         userRepository.save(updatedUser);
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 }
